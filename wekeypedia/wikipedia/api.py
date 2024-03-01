@@ -31,8 +31,8 @@ class api:
     try:
       result = r.json()
     except ValueError:
-      print self.url
-      print query
+      print(self.url)
+      print(query)
 
       result = r
 

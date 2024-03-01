@@ -658,11 +658,11 @@ class WikipediaPage(object):
 
   def print_plusminus_overview(self, diff):
     for minus in diff["deleted"]:
-      print "- %s" % (minus)
+      print("- %s" % (minus))
 
     for plus in diff["added"]:
-      print "+ %s" % (plus)
+      print("+ %s" % (plus))
 
 
   def print_plusminus_terms_overview(self, stems):
-    print "\n%s|%s\n" % ("+"*len(stems["added"].items()), "-"*len(stems["deleted"].items()))
+    print("\n%s|%s\n" % ("+"*len(stems["added"].items()), "-"*len(stems["deleted"].items())))

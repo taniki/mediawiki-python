@@ -22,7 +22,7 @@ class WikipediaUser:
 
   def fetch_contribs(self):
     """ get all contributions from a user """
-    api = API()
+    api = API(lang=self.lang)
 
     contribs = []
 
