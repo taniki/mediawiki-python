@@ -80,16 +80,16 @@ class WikipediaPage(object):
     self.lang = lang
 
     if (title):
-      title = title.strip()
-      self.fetch_info(title, lang=self.lang)
+      self.title = title.strip()
+      self.fetch_info()
 
-  def fetch_info(self, title, opt_params={ "prop": "info", "inprop": "url" }, lang="en"):
-    api = API(lang)
+  def fetch_info(self, opt_params={ "prop": "info", "inprop": "url" }):
+    api = API(self.lang)
 
     params = {
       "format": "json",
       "action": "query",
-      "titles": u""+title
+      "titles": self.title
       # "rvprop": "content",
       # "redirects": ""
     }
@@ -103,7 +103,6 @@ class WikipediaPage(object):
 
     self.page_id = list(pages.keys())[0]
     self.title = pages[ self.page_id ]["title"]
-    self.lang = lang
     self.url = pages[ self.page_id ]["fullurl"]
 
     self.data.update(pages[ self.page_id ])
@@ -191,7 +190,7 @@ class WikipediaPage(object):
     # add extra parameters to current query
     q.update(extra_params)
 
-    json = self.fetch_info(self.title, q)
+    json = self.fetch_info(opt_params=q)
 
     content = json["query"]["pages"][list(json["query"]["pages"].keys())[0]]
     content = content["revisions"][0]["*"]
@@ -292,7 +291,7 @@ class WikipediaPage(object):
     ------
     revisions : list
     """
-    api = API()
+    api = API(self.lang)
 
     revisions = []
 
@@ -333,7 +332,7 @@ class WikipediaPage(object):
     revisions : list
       todo: document revisions@get_revisions
     """
-    api = API()
+    api = API(self.lang)
 
     params = {
       "format": "json",
