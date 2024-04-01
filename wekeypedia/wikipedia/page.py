@@ -247,10 +247,10 @@ class WikipediaPage(object):
 
     content = r["query"]["pages"][list(r["query"]["pages"].keys())[0]]
 
-    if "diff" in content["revisions"][0]:
+    if "diff" in content["revisions"][0] and '*' in content["revisions"][0]["diff"]:
       content = content["revisions"][0]["diff"]["*"]
     else:
-      content = False
+      content = None
     # content = BeautifulSoup(content, 'html.parser')
 
     return content
